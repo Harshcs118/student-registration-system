@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Registration System</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- header of the webpage -->
+    <header>
+        <h1>Student Registration Form</h1>
+        <p>Welcome to the Student Registration System. This application allows users to register student details such as name, student ID, email, and contact number. Users can also view, edit, and delete student records. The system ensures data persistence through local storage, providing a seamless experience even after refreshing the page.</p>
+    </header>
+    <main>
+        <!-- form section -->
+        <form id="registrationForm">
+            <label for="studentName">Student Name:</label>
+            <input type="text" id="studentName" name="studentName" required>
+            <label for="studentID">Student ID:</label>
+            <input type="number" id="studentID" name="studentID" required>
+            <label for="email">Email ID:</label>
+            <input type="email" id="email" name="email" required>
+            <label for="contactNo">Contact No.:</label>
+            <input type="tel" id="contactNo" name="contactNo" required>
+            <button type="submit">Register</button>
+        </form>
+
+        <!-- student entry records section -->
+        <section id="studentRecords">
+            <h2>Registered Students</h2>
+            <table id="recordsTable">
+                <thead>
+                    <tr>
+                        <th>Student Name</th>
+                        <th>Student ID</th>
+                        <th>Email ID</th>
+                        <th>Contact No.</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Student records will be inserted here by javascript -->
+                </tbody>
+            </table>
+        </section>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
