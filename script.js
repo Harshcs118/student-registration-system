@@ -3,8 +3,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const recordsTable = document.getElementById("recordsTable").getElementsByTagName("tbody")[0];
     let students = JSON.parse(localStorage.getItem("students")) || [];
 
-    //Renders the student records table.
-
     const renderTable = () => {
         recordsTable.innerHTML = "";
         students.forEach((student, index) => {
@@ -22,18 +20,21 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     };
 
-
-    //Saves the students array to localStorage and re-renders the table.
-
     const saveStudents = () => {
         localStorage.setItem("students", JSON.stringify(students));
         renderTable();
     };
 
-    /**
-     * Handles the form submission to add or edit a student record.
-     * @param {Event} e The submit event
-     */
+    const isValidEmail = (email) => {
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(email);
+    };
+
+    const isValidContact = (contact) => {
+        const re = /^[0-9]{10}$/;
+        return re.test(contact);
+    };
+
     form.addEventListener("submit", (e) => {
         e.preventDefault();
         const name = form.studentName.value.trim();
@@ -41,19 +42,31 @@ document.addEventListener("DOMContentLoaded", () => {
         const email = form.email.value.trim();
         const contact = form.contactNo.value.trim();
 
-        if (name && id && email && contact) {
-            students.push({ name, id, email, contact });
-            saveStudents();
-            form.reset();
-        } else {
+        if (!name || !id || !email || !contact) {
             alert("All fields are required.");
+            return;
         }
+
+        if (isNaN(id)) {
+            alert("Student ID must be a number.");
+            return;
+        }
+
+        if (!isValidEmail(email)) {
+            alert("Invalid email format.");
+            return;
+        }
+
+        if (!isValidContact(contact)) {
+            alert("Contact number must be a 10-digit number.");
+            return;
+        }
+
+        students.push({ name, id, email, contact });
+        saveStudents();
+        form.reset();
     });
 
-    /**
-     * Edits a student record.
-     * @param {number} index The index of the student in the students array
-     */
     window.editStudent = (index) => {
         const student = students[index];
         form.studentName.value = student.name;
@@ -63,10 +76,6 @@ document.addEventListener("DOMContentLoaded", () => {
         students.splice(index, 1);
     };
 
-    /**
-     * Deletes a student record.
-     * @param {number} index The index of the student in the students array
-     */
     window.deleteStudent = (index) => {
         students.splice(index, 1);
         saveStudents();
