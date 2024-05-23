@@ -25,16 +25,6 @@ document.addEventListener("DOMContentLoaded", () => {
         renderTable();
     };
 
-    const isValidEmail = (email) => {
-        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return re.test(email);
-    };
-
-    const isValidContact = (contact) => {
-        const re = /^[0-9]{10}$/;
-        return re.test(contact);
-    };
-
     form.addEventListener("submit", (e) => {
         e.preventDefault();
         const name = form.studentName.value.trim();
@@ -42,29 +32,13 @@ document.addEventListener("DOMContentLoaded", () => {
         const email = form.email.value.trim();
         const contact = form.contactNo.value.trim();
 
-        if (!name || !id || !email || !contact) {
+        if (name && id && email && contact) {
+            students.push({ name, id, email, contact });
+            saveStudents();
+            form.reset();
+        } else {
             alert("All fields are required.");
-            return;
         }
-
-        if (isNaN(id)) {
-            alert("Student ID must be a number.");
-            return;
-        }
-
-        if (!isValidEmail(email)) {
-            alert("Invalid email format.");
-            return;
-        }
-
-        if (!isValidContact(contact)) {
-            alert("Contact number must be a 10-digit number.");
-            return;
-        }
-
-        students.push({ name, id, email, contact });
-        saveStudents();
-        form.reset();
     });
 
     window.editStudent = (index) => {

@@ -74,22 +74,31 @@ form button:hover {
     color: aliceblue;
 }
 
+#recordsTableContainer {
+    max-height: 400px; /* Set the desired max height */
+    overflow-y: auto; /* Enable vertical scrolling */
+    border-radius: 10px;
+    background-color: #ddd;
+}
+
 #recordsTable {
     width: 100%;
-    border-collapse: collapse;
-    background-color: #ddd;
-    border-radius: 10px;
-    overflow: hidden;
+    border-collapse: separate;
+    border-spacing: 0;
 }
 
 #recordsTable th, #recordsTable td {
     border: 1px solid #ffffff;
     padding: 8px;
+    box-sizing: border-box;
 }
 
 #recordsTable th {
     background-color: #27ae60; /* Green background */
     color: aliceblue;
+    position: sticky;
+    top: 0; /* Make the header sticky */
+    z-index: 1; /* Ensure the header is above the body rows */
 }
 
 #recordsTable tr:nth-child(even) {
@@ -105,17 +114,14 @@ form button:hover {
     background-color: #d4efdf; /* Light green on hover */
 }
 
-/* Scrollable table body */
-#studentRecords table tbody {
-    display: block;
-    max-height: 400px; /* Set the desired max height */
-    overflow-y: auto;
+.th1{
+    width: 25%;
 }
-
-#studentRecords table thead, #studentRecords table tbody tr {
-    display: table;
-    width: 100%;
-    table-layout: fixed;
+.th2{
+    width: 15%;
+}
+.th3{
+    width: 20%;
 }
 
 /* Edit and delete button styling */
@@ -159,14 +165,20 @@ a {
     header {
         width: 100%;
     }
+
     main {
         margin: 0px;
         width: 100%;
     }
+
     #recordsTable th, #recordsTable td {
         display: flex;
         flex-direction: column;
     }
+    #recordsTable th {
+        width: 100%; /* Set width of thead th to 100% */
+    }
+    
 }
 
 @media only screen and (min-width: 360px) and (max-width: 767px) {
@@ -176,12 +188,20 @@ a {
     header {
         width: 100%;
     }
+
     main {
         margin: 0px;
         width: 100%;
     }
+
+    
+
     #recordsTable th, #recordsTable td {
         display: flex;
         flex-direction: column;
+    }
+
+    #recordsTable th {
+        width: 100%; /* Set width of thead th to 100% */
     }
 }
